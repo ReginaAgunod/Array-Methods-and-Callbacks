@@ -1,4 +1,4 @@
-import {fifaData} from './fifa.js';
+import { fifaData } from "./fifa.js";
 console.log(fifaData);
 
 // ⚽️ M  V P ⚽️ //
@@ -13,32 +13,33 @@ console.log-ing the following pieces of data
 (e) Winner of 2014 world cup final */
 
 // filter Finals
-const finals2014 =
-    fifaData.filter(item => item.Year === 2014 && item.Stage === "Final")
+const finals2014 = fifaData.filter(
+  (item) => item.Year === 2014 && item.Stage === "Final"
+);
 
 //(a) Home Team name for 2014 world cup final
-console.log("Task 1a:", finals2014[0]['Home Team Name'])
+console.log("Task 1a:", finals2014[0]["Home Team Name"]);
 
 //(b) Away Team name for 2014 world cup final
-console.log("Task 1b:", finals2014[0]['Away Team Name'])
+console.log("Task 1b:", finals2014[0]["Away Team Name"]);
 
 //(c) Home Team goals for 2014 world cup final
-console.log("Task 1c:", finals2014[0]['Home Team Goals'])
+console.log("Task 1c:", finals2014[0]["Home Team Goals"]);
 
 //(d) Away Team goals for 2014 world cup final
-console.log("Task 1d:", finals2014[0]['Away Team Goals'])
+console.log("Task 1d:", finals2014[0]["Away Team Goals"]);
 
 //(e) Winner of 2014 world cup final
-console.log("Task 1e:", finals2014[0]['Win conditions'])
+console.log("Task 1e:", finals2014[0]["Win conditions"]);
 
 /* Task 2: Create a function called  getFinals that takes `data` as an argument
  * and returns an array of objects with only finals data */
 
 function getFinals(data) {
-  const allFinals = data.filter(match => match.Stage === "Final");
+  const allFinals = data.filter((match) => match.Stage === "Final");
 
   return allFinals;
-};
+}
 
 console.log("Task 2:", getFinals(fifaData));
 
@@ -54,8 +55,8 @@ function getYears(data, getFinals) {
   //  })
   //   return yearsArray;
 
-  return getFinals(data).map(item => item.Year)
-};
+  return getFinals(data).map((item) => item.Year);
+}
 
 console.log("Task 3:", getYears(fifaData, getFinals));
 
@@ -65,7 +66,6 @@ console.log("Task 3:", getYears(fifaData, getFinals));
  * called `winners` */
 
 function getWinners(data, getFinals) {
-
   // const finalsData = getFinals(data);
 
   // const winner = finalsData.map(match => {
@@ -78,11 +78,12 @@ function getWinners(data, getFinals) {
 
   // return winner
 
-  return getFinals(data).map(match => match["Home Team Goals"] >
-                                              match["Away Team Goals"]
-                                          ? match["Home Team Name"]
-                                          : match["Away Team Name"])
-};
+  return getFinals(data).map((match) =>
+    match["Home Team Goals"] > match["Away Team Goals"]
+      ? match["Home Team Name"]
+      : match["Away Team Name"]
+  );
+}
 
 console.log("Task 5:", getWinners(fifaData, getFinals));
 
@@ -96,12 +97,12 @@ Parameters:
  */
 
 function getWinnersByYear(data, getYears, getWinners) {
-
   const winners = getWinners(data, getFinals);
   const years = getYears(data, getFinals);
-  return winners.map((item, index) =>
-                         `In ${years[index]}, ${item} won the world cup!`);
-};
+  return winners.map(
+    (item, index) => `In ${years[index]}, ${item} won the world cup!`
+  );
+}
 
 console.log("Task 6:", getWinnersByYear(fifaData, getYears, getWinners));
 
@@ -137,16 +138,15 @@ Hint: use `.reduce` */
 
 function getCountryWins(data, teamInitials) {
   let count = 0;
-  const initials = data.map(match => {
+  const initials = data.map((match) => {
     if (match["Home Team Goals"] > match["Away Team Goals"]) {
       return match["Home Team Initials"];
-
     } else {
       return match["Away Team Initials"];
     }
   });
 
-  initials.forEach(name => {
+  initials.forEach((name) => {
     if (name === teamInitials) {
       count++;
     }
@@ -162,11 +162,11 @@ console.log("Task 7:", getCountryWins(getFinals(fifaData), "GER"));
  * goals scored per match (Hint: use .reduce and do this in 2 steps) */
 
 function getAverageGoals(data) {
-  const averageHomeGoals = data.reduce(function(accumulator, item) {
-    return accumulator + item["Home Team Goals"] + item["Away Team Goals"]
-  }, 0)
+  const averageHomeGoals = data.reduce(function (accumulator, item) {
+    return accumulator + item["Home Team Goals"] + item["Away Team Goals"];
+  }, 0);
 
-  return (averageHomeGoals / data.length).toFixed(2)
-};
+  return (averageHomeGoals / data.length).toFixed(2);
+}
 
 console.log("Task 10:", getAverageGoals(getFinals(fifaData)));
